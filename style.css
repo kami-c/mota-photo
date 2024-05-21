@@ -1,8 +1,118 @@
+@charset "UTF-8";
+
 /*
 Theme Name: Mota Photo
-Theme URI: https://www.motaphoto.fr
 Author: Kami-c
 Description: Thème dédié à la photographie
-Text Domain: mota-photo
 Version: 1.0
+Text Domain: mota-photo
 */
+
+* {
+  margin: 0;
+}
+
+:root {
+  --noir: #000;
+  --bleu-fonce: #313144;
+  --gris-fonce: #C4C4C4;
+  --gris-moyen: #D8D8D8;
+  --gris-leger: #E5E5E5;
+  --rouge: #E00000;
+  --rouge-secondaire: #FE5858;
+  --rouge-tertiaire: #FFD6D6;
+  --blanc: #fff;
+}
+
+/* >>> POLICES */
+@font-face {
+  font-family: "Space Mono";
+  src: url("./assets/fonts/SpaceMono-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Space Mono";
+  src: url("./assets/fonts/SpaceMono-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Space Mono";
+  src: url("./assets/fonts/SpaceMono-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+}
+
+/* >>> HEADER */
+.nav {
+  height: 80px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
+  background-color: var(--blanc);
+}
+.nav__logo {
+  width: 216px;
+  height: 14px;
+}
+.nav__menu {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+}
+.nav__menu .menu-item {
+  margin: 0 45px;
+}
+.nav__menu .menu-item > a {
+  text-decoration: none;
+  color: var(--noir);
+  font-family: "Space Mono";
+  font-size: 16px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/* >>> FOOTER */
+.footer {
+  margin: auto;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  border-top: solid 1px var(--noir);
+  padding: 1px 0px 8px 0px;
+  align-items: center;
+  gap: 7px;
+}
+.footer__menu {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+}
+.footer__menu .menu-item {
+  margin-right: 86px;
+}
+.footer__menu .menu-item > a {
+  text-decoration: none;
+  color: var(--noir);
+  font-family: "Space Mono";
+  font-size: 16px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+.footer > p {
+  margin: 0;
+  color: var(--noir);
+  font-family: "Space Mono";
+  font-size: 16px;
+  line-height: normal;
+  text-transform: uppercase;
+}
