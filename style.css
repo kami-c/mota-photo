@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /*
 Theme Name: Mota Photo
 Author: Kami-c
@@ -7,7 +6,6 @@ Description: Thème dédié à la photographie
 Version: 1.0
 Text Domain: mota-photo
 */
-
 * {
   margin: 0;
 }
@@ -49,9 +47,11 @@ Text Domain: mota-photo
   font-style: normal;
   font-weight: 300;
 }
-
 /* >>> HEADER */
-.nav {
+header {
+  margin: auto;
+}
+header .navbar {
   height: 80px;
   margin: auto;
   display: flex;
@@ -59,26 +59,51 @@ Text Domain: mota-photo
   align-items: center;
   box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
   background-color: var(--blanc);
+  position: relative;
 }
-.nav__logo {
+header .navbar__logo {
   width: 216px;
   height: 14px;
 }
-.nav__menu {
+header .navbar__menu {
   list-style: none;
   padding-left: 0;
   display: flex;
 }
-.nav__menu .menu-item {
+header .navbar__menu .menu-item {
   margin: 0 45px;
 }
-.nav__menu .menu-item > a {
+header .navbar__menu .menu-item > a {
   text-decoration: none;
   color: var(--noir);
   font-family: "Space Mono";
   font-size: 16px;
   line-height: normal;
   text-transform: uppercase;
+}
+header .navbar__menu .menu-item > a:hover {
+  font-weight: 700;
+}
+header .hero-header {
+  margin: auto;
+  height: 966px;
+  width: 100%;
+  max-width: 1440px;
+  background-image: url(./assets/img/nathalie-11.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Space Mono";
+  font-size: 96px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #FFF;
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* >>> FOOTER */
