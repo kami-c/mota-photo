@@ -84,28 +84,6 @@ header .navbar__menu .menu-item > a {
 header .navbar__menu .menu-item > a:hover {
   font-weight: 700;
 }
-header .hero-header {
-  margin: auto;
-  height: 966px;
-  width: 100%;
-  max-width: 1440px;
-  background-image: url(./assets/img/nathalie-11.webp);
-  background-repeat: no-repeat;
-  background-size: cover;
-  font-family: "Space Mono";
-  font-size: 96px;
-  font-style: italic;
-  font-weight: 700;
-  line-height: normal;
-  text-transform: uppercase;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #FFF;
-  color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* >>> FOOTER */
 .footer {
   margin: auto;
