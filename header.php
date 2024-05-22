@@ -9,18 +9,21 @@
     </head>
     
 <body>
-    <header class="nav">
-        <a href="<?php echo home_url( '/' ); ?>">
-            <img class="nav__logo" src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.webp" alt="Logo">
-        </a>
-        
-        <?php 
-            wp_nav_menu(
-                array(
-                    'theme_location' => 'main',
-                    'container' => 'ul', // supprime la div par défaut de wp
-                    'menu_class' => 'nav__menu', // classe personnalisée
-                ) 
-            );
-        ?>
+    <header>
+        <nav class="navbar">
+            <a href="<?php echo home_url( '/' ); ?>">
+                <img class="navbar__logo" src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.webp" alt="Logo">
+            </a>
+
+            <?php 
+                wp_nav_menu(
+                    array(
+                        'theme_location' => 'main',
+                        'container' => 'ul',
+                        'menu_class' => 'navbar__menu',
+                    ) 
+                );
+            ?>
+        </nav>
+        <h1 class="hero-header">PHOTOGRAPHE EVENT</h1>
     </header>
