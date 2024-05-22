@@ -25,5 +25,4 @@
                 );
             ?>
         </nav>
-        <h1 class="hero-header">PHOTOGRAPHE EVENT</h1>
     </header>
