@@ -2,9 +2,8 @@
 /*
  Template Name: Contact
 */
-
-wp_head();
 ?>
+
 <!-- Fenêtre modale -->
 <div class="modal">
   <!-- Contenu de la modale -->
