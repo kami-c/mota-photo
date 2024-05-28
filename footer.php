@@ -7,11 +7,12 @@
                         'menu_class' => 'footer__menu'
                     )
                 );
-            ?> 
-            
-            <p>Tous droits réservés</p>
+            ?>
         </footer>
     
-    	<?php wp_footer(); ?>
+    	<?php 
+        echo get_template_part( 'templates_part/contact' );
+        wp_footer(); 
+        ?>
     </body>
 </html>
