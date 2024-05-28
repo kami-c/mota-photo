@@ -21,7 +21,23 @@ if ( ! function_exists( 'mota_photo_style' )):
     function mota_photo_style() {
 
         // jQuery
-        wp_enqueue_script( 'jquery' );
+        wp_deregister_script('jquery' ); // version 3.4.1
+        wp_enqueue_script(
+            'jquery', 
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', 
+            false, 
+            '3.7.1', 
+            true
+        );
+
+        // Fenêtre modale de contact
+        wp_enqueue_script(
+            'contact',
+            get_stylesheet_directory_uri() . '/assets/js/contact.js',
+            array('jquery'),
+            null,
+            true
+        );
 
         // Javascript
         wp_enqueue_script(
@@ -43,7 +59,6 @@ endif;
 
 // Déclaration des emplacements de menu
 register_nav_menus( array(
-	'main' => 'Menu principal',
-	'footer' => 'Menu bas de page',
+	'main' => __('Menu principal'),
+	'footer' => __('Bas de page'),
 ) );
-
