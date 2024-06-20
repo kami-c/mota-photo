@@ -1,0 +1,17 @@
+.photo-bloc {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    &__img {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto 20px auto;
+        width: 100%;
+        align-items: center;
+        width: 39vw; 
+        height: 39vw; 
+        object-fit: cover;
+
+    }
+}

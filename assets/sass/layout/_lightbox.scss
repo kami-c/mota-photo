@@ -1,0 +1,88 @@
+/* >>> LIGHTBOX <<< */
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($noir, .9);
+    z-index: 10;
+    overflow: auto; // permet de scroller pour voir toute l'image dans sa hauteur sur petit ecran horizontal
+    animation: lightboxIn .5s;
+    transition: opacity .3s;
+
+    .fadeOut {
+        opacity: 0;
+    }
+
+    &__next, 
+    &__prev {
+        background: url(assets/img/arrow.svg) center / 25px 18px no-repeat;
+        border: none;
+        width: 50px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        margin-top: -14px;
+        z-index: 11;
+        text-indent: -3000px; // à remettre plus tard
+    }
+
+    &__next {
+        right: auto;
+        left: 0;
+        transform: rotate(180deg);
+    }
+
+    &__close {
+        background: url(assets/img/close.svg) center / 22px 22px no-repeat;
+        width: 22.021px;
+        height: 22.018px;
+        border: none;
+        text-indent: -3000px;
+        position: fixed;
+        top: 20px;
+        right: 13px;
+        z-index: 12;
+    }
+
+    button {
+        opacity: .5;
+        cursor: pointer;
+        transition: opacity .3s;
+    }
+
+    button:hover {
+        opacity: 1;
+    }
+
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin-left: 50px;
+        margin-right: 50px;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            animation: lightboxIn .5s;
+        }
+
+        &__loader {
+            width: 38px;
+            height: 98px;
+            opacity: .5;
+            background: url(assets/img/loader.svg) center no-repeat;
+        }
+    }
+}
+
+@keyframes lightboxIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+

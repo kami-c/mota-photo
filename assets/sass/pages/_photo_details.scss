@@ -1,0 +1,204 @@
+/* >>> photo_details <<<*/
+.photo-post {
+    margin: 38px 140px 0px 140px;
+    
+    .post {
+        display: flex;
+        width: 100%;
+        margin: 38px auto;
+        
+        &__info {
+            width: 50%;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-right: 21px;
+            padding-bottom: 40px;
+            gap: 20px;
+    
+            p:nth-child(3) > a,
+            p:nth-child(4) > a {
+                color: #000;
+                text-decoration: none;
+                pointer-events: none;
+            }
+    
+            &--details {
+                font-family: "Space Mono";
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                letter-spacing: 1.4px;
+                text-transform: uppercase; 
+                color: $noir;
+                text-decoration: none;
+            }
+        }
+    
+        &__img{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            object-fit: cover;
+        }
+    }
+    
+    .info {
+        display: flex;
+        width: 100%;
+        border-bottom: solid 2px $noir;
+        height: 118px;
+    
+        &__contact {
+            display: flex;
+            width: 50%;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0 30px 0;
+            margin-right: 21px;
+            border-top: 2px solid $noir;
+    
+            &--submit {
+                @include button-submit;
+            }
+    
+            &--submit:hover {
+                @include button-submit-hover;
+            }
+        }
+    
+        &__navigation {
+            display: flex;
+            width: 50%;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+    
+            &--button {
+                display: flex;
+                align-items: flex-end;
+    
+                .nav-post-img-previous,
+                .nav-post-img-next {
+                    display: none;
+                    width: 81px;
+                    height: 71px; 
+                    object-fit: cover;
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                }
+    
+                &:hover {
+                    .nav-post-img-previous,
+                    .nav-post-img-next {
+                        display: block;
+                        opacity: 1;
+                    }
+                }
+    
+                .previous {
+                    @include buttons-nav;
+                    margin: 0 1vw;
+    
+                    img {
+                        width: 25px;
+                        cursor: pointer;
+                    }
+    
+                    img:hover {
+                        font-weight: 600;
+                    }
+                }
+    
+                .next {
+                    @include buttons-nav;
+    
+                    img {
+                        width: 25px;
+                        cursor: pointer;
+                    }
+    
+                    img:hover {
+                        font-weight: 600;
+                    }
+                }
+            }        
+        }
+    }
+    
+    .suggestion {
+        display: flex;
+        width: 100%;
+        margin-top: 75px;
+        flex-direction: column;
+    
+        &__content {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px auto 100px auto;
+            width: 100%;
+            align-items: center;
+    
+            &--img {
+                width: 39vw; 
+                height: 39vw; 
+                object-fit: cover;
+    
+            }
+        }
+    }
+}
+
+
+
+// >>> RESPONSIVE
+
+@media screen and (max-width: 768px) {
+    .post {
+        flex-direction: column-reverse;
+        margin: auto;
+
+        &__info {
+            margin: 20px auto 0 auto;
+            width: 100%;
+        }
+
+        .post__img {
+            width: 100%;
+        }
+    }
+
+    .info {
+        flex-direction: column;
+        padding-bottom: 31px;
+
+        &__contact {
+            width: 100%;
+            flex-direction: column;
+            margin-right: 0;
+            gap: 15px;
+        }
+
+        &__navigation {
+            display: none;
+        }
+    }
+
+    .suggestion {
+        flex-direction: column;
+
+        &__content{
+            flex-direction: column;
+            gap: 25px;
+
+            &--img {
+                width: 64vw;
+                height: 64vh;  
+            }
+        }
+    }
+}

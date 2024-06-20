@@ -1,0 +1,64 @@
+/* >>> HEADER <<< */
+header {
+    width: 100%;
+    position: relative;
+    box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
+    background-color: $blanc;
+    top: 0;
+
+    // >>> LOGO
+    .logo {
+        display: block;
+        float: left;
+        padding: 32px;
+
+        &__img {
+            height: 14px;
+        }
+    }
+
+    .logo:hover {
+        animation: blur-out-expand 0.5s linear reverse;
+    }
+
+    @keyframes blur-out-expand {
+        
+        0% {
+            filter:blur(0);
+        }
+        100% {
+            filter:blur(12px) opacity(0%);
+        }
+    }
+
+    // >>> MENU
+    .menu__btn {
+        display: none;
+    }
+
+    .navbar {
+        height: 82.4px;
+        margin: auto;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .navbar__menu {
+        list-style: none;
+        padding-left: 0;
+        display: flex;
+
+        .menu-item {
+            margin: 0 45px;
+        }
+        .menu-item > a {
+            @include space-mono-normal;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .menu-item > a:hover {
+            font-weight: 700;
+        }
+    }
+}
