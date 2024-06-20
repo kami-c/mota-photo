@@ -1,4 +1,467 @@
 <?php
+// >>> Ajout du titre du site
+function mota_photo__wp_title($title) {
+    $title .= get_bloginfo( 'name', 'display' );
+    return $title;
+}
+add_filter('wp_title', 'mota_photo__wp_title', 10, 2);
+
+
+// >>> Compatibilité rétrospective pour ajout de support de thème
+global $wp_version;
+if ( version_compare( $wp_version, '3.0', '>=' ) ) :
+	add_theme_support( 'automatic-feed-links' ); 
+else :
+	automatic_feed_links();
+endif;
+
+// >>> Déclaration du thème personnalisé
+if ( ! function_exists( 'mota_photo_style' )):
+
+    function mota_photo_style_and_scripts() {
+
+        // jQuery
+        wp_deregister_script('jquery' ); // version 3.4.1
+        wp_enqueue_script(
+            'jquery', 
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', 
+            false, 
+            '3.7.1', 
+            true
+        );
+
+        // Fenêtre modale de contact
+        wp_enqueue_script(
+            'contact',
+            get_stylesheet_directory_uri() . '/assets/js/contact.js',
+            array('jquery'),
+            null,
+            true
+        );
+
+		// Lightbox
+		wp_enqueue_script(
+			'lightbox',
+			get_stylesheet_directory_uri() . '/assets/js/lightbox.js',
+			array('jquery'),
+			null,
+			true
+		);
+
+		// Hero-header
+		// wp_enqueue_script(
+		// 	'hero',
+		// 	get_stylesheet_directory_uri() . '/assets/js/hero-header.js',
+		// 	array('jquery'),
+		// 	null,
+		// 	true
+		// );
+
+		// Filtres
+		wp_enqueue_script(
+			'filters',
+			get_stylesheet_directory_uri() . '/assets/js/filters.js',
+			array('jquery'),
+			null,
+			true
+		);
+
+		wp_localize_script(
+			'filters',
+			'ajax_object',
+			array('ajax_url' => admin_url('admin-ajax.php'))
+		);
+
+        // Javascript
+        wp_enqueue_script(
+            'script',
+            get_template_directory_uri() . '/assets/js/script.js',
+            array( 'jquery' ),
+            true //chargement en bas de page (footer) - false pour chargement dans le header
+        );
+
+        // CSS
+        wp_enqueue_style( 
+            'style',
+            get_template_directory_uri() . '/style.css',
+            array()
+        );
+    }
+add_action('wp_enqueue_scripts','mota_photo_style_and_scripts');
+endif;
+
+
+// >>> Déclaration des emplacements de menu
+register_nav_menus( array(
+	'main' => __('Menu principal'),
+	'footer' => __('Bas de page'),
+) );
+
+
+// >>> Types de contenus personnalisés
+function mota_photo_register_custom_post_types() {
+	    
+    $labels_photo = array (
+		'name'                      => 'Photos',
+		'singular_name'             => 'Photo',
+		'menu_name'                 => __('Photos', 'mota_photo'),
+        'name_admin_bar'            => __('Photos', 'mota_photo'),
+		'all_items'                 => __('Toutes les photos', 'mota_photo'),
+		'edit_item'                 => __('Modifier la photo', 'mota_photo'),
+		'view_item'                 => __('Voir la photo', 'mota_photo'),
+		'view_items'                => __('Voir les photos', 'mota_photo'),
+		'add_new_item'              => __('Ajouter une nouvelle photo', 'mota_photo'),
+		'add_new'                   => __('Ajouter une photo', 'mota_photo'),
+		'new_item'                  => __('Nouvelle photo', 'mota_photo'),
+		'parent_item_colon'         => 'Photo parent :',
+		'search_items'              => __('Rechercher des photos', 'mota_photo'),
+		'not_found'                 => __('Aucune photo trouvée', 'mota_photo'),
+		'not_found_in_trash'        => __( 'Aucune photo trouvée dans la corbeille', 'mota_photo'),
+		'archives'                  => __('Archives des photos', 'mota_photo'),
+		'attributes'                => __('Attributs des photos', 'mota_photo'),
+		'insert_into_item'          => __('Insérer dans photo', 'mota_photo'),
+		'uploaded_to_this_item'     => __('Téléversé sur cette photo', 'mota_photo'),
+		'filter_items_list'         => __('Filtrer la liste des photos', 'mota_photo'),
+		'filter_by_date'            => __('Filtrer les photos par date', 'mota_photo'),
+		'items_list_navigation'     => __('Navigation dans la liste des photos', 'mota_photo'),
+		'items_list'                => __('Liste des photos', 'mota_photo'),
+		'item_published'            => __('Photo publiée', 'mota_photo'),
+		'item_published_privately'  => __('Photo publiée en privé', 'mota_photo'),
+		'item_reverted_to_draft'    => __('Photo repassée en brouillon', 'mota_photo'),
+		'item_scheduled'            => __('Photo planifiée', 'mota_photo'),
+		'item_updated'              => __('Photo mise à jour', 'mota_photo'),
+		'item_link'                 => __('Lien de la photo', 'mota_photo'),
+		'item_link_description'     => __('Un lien vers une photo', 'mota_photo'),
+	);
+
+    $args_photo = array(
+        'labels'                    => $labels_photo,
+        'label'                     => __('Photos', 'mota_photo'),
+        'description'               => __('Photos', 'mota_photo'),
+	    'public'                    => true,
+	    'show_in_rest'              => false,
+        'show_ui'                   => true,
+        'show_in_menu'              => true,
+        'show_in_admin_bar'         => true,
+        'show_in_nav_menus'         => true,
+        'can_export'                => true,
+        'has_archive'               => true,
+        'exclude_from_search'       => false,
+        'publicly_queryable'        => true,
+        'capability_type'           => 'post',
+	    'menu_position'             => 5,
+	    'menu_icon'                 => 'dashicons-format-image',
+	    'supports'                  => array(
+        	0 => 'title',
+        	1 => 'editor',
+			2 => 'thumbnail',
+        	3 => 'custom-fields'			
+        ),
+        'hierarchical'              => false,
+	    'taxonomies'                => array(
+	        0 => 'categorie', // renommer en categorie plutot que category pour ne pas afficher les catégories d'articles
+	        1 => 'format',
+	    ),
+	    'delete_with_user'          => false,
+    );
+
+    register_post_type('photos', $args_photo);
+};
+add_action( 'init', 'mota_photo_register_custom_post_types');
+
+function mota_photo_setup() {
+    // Ajouter la prise en charge des miniatures dans le thème
+    add_theme_support('post-thumbnails');
+
+    // Définir la taille de la miniature
+    // add_image_size('thumbnail-size', 150, 150, true);
+}
+add_action('after_setup_theme', 'mota_photo_setup');
+
+// >>> TAXONOMIES
+function mota_photo_register_taxonomies() {
+
+    // Catégories photos
+	$labels = array(
+		'name'                      => __('Catégories'),
+		'singular_name'             => __('Catégorie'),
+		'menu_name'                 => __('Catégories'),
+        'name_admin_bar'            => __('Catégories'),
+		'all_items'                 => __('Tous les catégories'),
+		'edit_item'                 => __('Modifier les catégories'),
+		'view_item'                 => __('Voir les catégories'),
+		'update_item'               => __('Mettre à jour les catégories'),
+		'add_new_item'              => __('Ajouter une catégorie'),
+		'new_item_name'             => __('Nom de la nouvelle catégorie'),
+		'search_items'              => __('Rechercher dans les catégories'),
+		'popular_items'             => __('Catégories populaires'),
+		'separate_items_with_commas'=> __('Séparer les catégories avec une virgule'),
+		'add_or_remove_items'       => __('Ajouter ou retirer catégories'),
+		'choose_from_most_used'     => __('Choisir parmi les catégories les plus utilisés'),
+		'not_found'                 => __('Aucune une catégorie photo trouvé'),
+		'no_terms'                  => __('Aucune une catégorie photo'),
+		'items_list_navigation'     => __('Navigation dans la liste des catégories'),
+		'items_list'                => __('Liste des catégories'),
+		'back_to_items'             => __('← Aller à « Catégories »'),
+		'item_link'                 => __('Lien des catégories'),
+		'item_link_description'     => __('Un lien vers une catégorie'),
+    );
+    $args = array(
+        'hierarchical'              => true, 
+        'labels'                    => $labels,
+	    'public'                    => true,
+        'show_ui'                   => true,
+        'show_admin_column'         => true,
+	    'show_in_menu'              => true,
+	    'show_in_rest'              => false,
+        'query_var'                 => true,
+        'rewrite'                   => array( 'slug' => 'categorie', 'with_front' => TRUE  )
+    );
+    register_taxonomy('categorie', array(0 => 'photos'), $args);
+
+	// Formats
+	$labels = array (
+		'name'                      => __('Formats'),
+		'singular_name'             => __('Format'),
+		'menu_name'                 => __('Formats'),
+		'all_items'                 => __('Tous les Formats'),
+		'edit_item'                 => __('Modifier Format'),
+		'view_item'                 => __('Voir Format'),
+		'update_item'               => __('Mettre à jour Format'),
+		'add_new_item'              => __('Ajouter Format'),
+		'new_item_name'             => __('Nom du nouveau Format'),
+		'search_items'              => __('Rechercher Formats'),
+		'popular_items'             => __('Formats populaire'),
+		'separate_items_with_commas'=> __('Séparer les formats avec une virgule'),
+		'add_or_remove_items'       => __('Ajouter ou retirer formats'),
+		'choose_from_most_used'     => __('Choisir parmi les formats les plus utilisés'),
+		'not_found'                 => __('Aucun formats trouvé'),
+		'no_terms'                  => __('Aucun formats'),
+		'items_list_navigation'     => __('Navigation dans la liste Formats'),
+		'items_list'                => __('Liste Formats'),
+		'back_to_items'             => __('← Aller à « formats »'),
+		'item_link'                 => __('Lien Format'),
+		'item_link_description'     => __('Un lien vers un format'),
+    );
+    $args = array (
+        'hierarchical'              => true, 
+        'labels'                    => $labels,
+	    'public'                    => true,
+        'show_ui'                   => true,
+        'show_admin_column'         => true,
+	    'show_in_menu'              => true,
+	    'show_in_rest'              => false,
+        'query_var'                 => true,
+        'rewrite'                   => array( 'slug' => 'format', 'with_front' => TRUE )
+    );
+    register_taxonomy( 'format', array(0 => 'photos',),  $args);
+};
+add_action( 'init', 'mota_photo_register_taxonomies');
+
+
+// Fontion pour ajouter une colonne affichant les ID des posts dans l'interface du CTP Photos 
+function add_title_column( $columns ){
+	$columns['post_id_clmn'] = 'ID'; // $columns['Column ID'] = 'Column Title';
+	return $columns;
+}
+add_filter('manage_photos_posts_columns', 'add_title_column'); // Syntaxe : 'manage_manage_{cpt}_columns'
+
+function column_content( $column, $id ){
+	if( $column === 'post_id_clmn')
+		echo $id;
+}
+add_action('manage_photos_posts_custom_column', 'column_content', 4, 2);
+
+function sortable_columns($columns) {
+    $columns['post_id_clmn'] = 'post_id_clmn';
+    return $columns;
+}
+add_filter('manage_photos_posts_custom_columns', 'sortable_columns');
+
+function column_orderby($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    if ($query->get('orderby') == 'post_id_clmn') {
+        $query->set('meta_key', 'post_id_clmn');
+        $query->set('orderby', 'meta_value');
+    }
+}
+add_action('pre_get_posts', 'column_orderby');
+
+
+
+
+// >>> GESTIONNAIRE DE FILTRES
+
+// Catégories photo_details
+function mota_photo_category_filter() {
+//  RECHERCHE DE L'ID DE L'IMAGE EN COURS
+    $current_post_id = get_the_ID();
+    // RÉCUPATION DES TERMES DE LA TAXONOMIE DE L'IMAGE EN COURS
+    $terms = get_the_terms($current_post_id, 'categorie');
+    // VÉRIFICATION DES DONNÉES DANS LA VARIABLE $TERMS
+    if (!empty($terms) && !is_wp_error($terms)) {
+        // SÉLECTION DU PREMIER TERME DANS LE TABLEAU
+        $current_term = $terms[0];
+        $term_slug = $current_term->slug; // 'slug' et non'term_id' sinon pas de retour d'image possible // rewrite
+    
+        // ARGUMENTS À RÉCUPÉRER
+        $args = array(
+            'post_type' => 'photos',
+            'posts_per_page' => 2,
+            'orderby' => 'rand',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'categorie',
+                    'field'    => 'slug', // ou 'term_id'
+                    'terms'    => $term_slug,
+                ),
+            ),
+        );
+    // EXCÉCUTION DE LA REQUÊTE WP Query AVEC ARGUMENTS
+    $id_query = new WP_Query( $args );
+    // VÉRIFICATION S'IL Y A DES POSTS À AFFICHER
+    if( $id_query->have_posts() ) :
+     // VÉRIFICATION DANS UNE BOUCLE S'IL Y A DES POSTS À CHAQUE ITÉRATION    
+     while( $id_query->have_posts() ) : 
+     // PRÉPARATION DES POSTS EN FONCTION DES TEMPLATES DU POST EN COURS
+     $id_query->the_post();
+    
+     // GESTION DE L'AFFICHAGE DU CONTENU
+     $content = get_the_content(); // Récupération du contenu : image active
+     $content = apply_filters('the_content', $content);// Application des filtres
+     $content = str_replace(array('<p>', '</p>'), '', $content); // Suppression de la balise auto <p></p> sur contenu
+     $content = preg_replace('/<img(.*?)class="(.*?)"(.*?)>/', '<img$1class="$2 suggestion__content--img"$3>', $content); // ajout de la class "post_img"
+
+     echo $content; // Affichage du contenu
+     endwhile;
+    // RÉINITIALISATION DE LA REQUÊTE PRINCIPALE
+    wp_reset_postdata();
+    else :
+        echo 'Aucun post trouvé';
+    endif;
+    } else {
+        echo 'Aucun terme trouvé pour cette taxonomie.';
+    }
+}
+
+function mota_photo_category_filter_shortcode() {
+    add_shortcode('category_filter', 'mota_photo_category_filter');
+}
+add_action('init', 'mota_photo_category_filter_shortcode');
+
+
+// >>> TRI PAR CATEGORIE page home.php 
+function mota_photo_category_filter_home() {
+
+	if (isset($_POST['category'])) {
+        $term_slug = sanitize_text_field($_POST['category']);
+
+		// ARGUMENTS À RÉCUPÉRER
+		$args = array(
+			'post_type' => 'photos',
+			'posts_per_page' => -1,
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'categorie',
+					'field'    => 'slug', // ou 'term_id'
+					'terms'    => $term_slug,
+				),
+			),
+		);
+
+	// EXCÉCUTION DE LA REQUÊTE WP Query AVEC ARGUMENTS
+	$query = new WP_Query( $args );
+
+	// VÉRIFICATION S'IL Y A DES POSTS À AFFICHER
+	if( $query->have_posts() ) :
+		// VÉRIFICATION DANS UNE BOUCLE S'IL Y A DES POSTS À CHAQUE ITÉRATION    
+	 	while( $query->have_posts() ) : 
+			// PRÉPARATION DES POSTS EN FONCTION DES TEMPLATES DU POST EN COURS
+			$query->the_post();
+	
+			// GESTION DE L'AFFICHAGE DU CONTENU
+			$content = get_the_content(); // Récupération du contenu : image active
+			$content = apply_filters('the_content', $content);// Application des filtres
+			$content = str_replace(array('<p>', '</p>'), '', $content); // Suppression de la balise auto <p></p> sur contenu
+			$content = preg_replace('/<img(.*?)class="(.*?)"(.*?)>/', '<img$1class="$2 suggestion__content--img"$3>', $content); // ajout de la class "post_img"
+
+			echo $content; // Affichage du contenu
+		endwhile;
+
+		// RÉINITIALISATION DE LA REQUÊTE PRINCIPALE
+		wp_reset_postdata();
+		else :
+		echo 'Aucun post trouvé';
+	endif;
+	} else {
+		echo 'Aucun terme trouvé pour cette taxonomie.';
+	}
+
+	wp_die();
+}
+
+add_action('wp_ajax_fetch_mota_photo_category_filter_home', 'mota_photo_category_filter_home');
+add_action('wp_ajax_nopriv_fetch_mota_photo_category_filter_home', 'mota_photo_category_filter_home');
+
+
+
+
+
+
+// >>> TRI PAR FORMATS
+function mota_photo_format_filter() {
+	?>
+	<form
+    class="filter-container__form__format"
+    action="<?php echo admin_url('admin-ajax.php'); ?>"
+    method="post"
+    >
+        <select
+		id="filter-container__format"
+		name="filter-container__format"
+		value="<?php get_terms();?>"
+		>
+            <option value="" disabled selected>Formats</option>
+			<option value=""></option>
+
+			<?php
+			$taxonomy = 'format';
+			$args = array(
+				'taxonomy'   	 => $taxonomy,
+				'hide_empty' 	 => false,
+				'parent'     	 => 0, // Récupère uniquement les termes parents
+				'posts_per_page' => -1
+			);
+		
+			$terms = get_terms($args);
+		
+			if (!empty($terms) && !is_wp_error($terms)) {
+				foreach ($terms as $term) {
+					echo '<option class="option" id="' . $term->slug . '" value="' . $term->term_id . '">' . $term->name . '</option>';
+				}
+			}
+			?>
+        </select>
+
+		<input 
+			type="hidden"
+			name="action"
+			value="filter-container__format_action"
+		>
+		<?php wp_nonce_field( 'format_nonce', 'format_nonce_field' ); ?>
+    </form>
+	<?php
+}
+add_action('wp_ajax_mota_photo_format_filter', 'mota_photo_format_filter');
+add_action('wp_ajax_nopriv_mota_photo_format_filter', 'mota_photo_format_filter');
+
+
+
+// >>> TRI PAR DATE
+require get_template_directory() . '/inc/wp-query.php';<?php
 // >>> AJOUT DU TITRE DU SITE
 function mota_photo__wp_title($title) {
     $title .= get_bloginfo( 'name', 'display' );
