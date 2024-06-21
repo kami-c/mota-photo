@@ -27,7 +27,7 @@
         right: 0;
         margin-top: -14px;
         z-index: 11;
-        text-indent: -3000px; // à remettre plus tard
+        text-indent: -6000px; // à remettre plus tard
     }
 
     &__next {
@@ -68,6 +68,7 @@
 
         img {
             max-width: 100%;
+            max-height: 100vh;
             height: auto;
             animation: lightboxIn .5s;
         }
@@ -78,6 +79,26 @@
             opacity: .5;
             background: url(assets/img/loader.svg) center no-repeat;
         }
+
+        .category,
+        .reference {
+            @include poppins;
+            color: $blanc;
+            font-weight: 500;
+            text-transform: uppercase;
+            position: fixed;
+            z-index: 11;
+        }
+
+        .reference {
+            right: 10vw;
+            bottom: 2vh;
+        }
+
+        .category {
+            left: 10vw;
+            bottom: 2vh;
+        }
     }
 }
 
@@ -85,4 +106,3 @@
     from {opacity: 0;}
     to {opacity: 1;}
 }
-
