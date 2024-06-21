@@ -2,16 +2,56 @@
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    margin-top: 75px;
 
     &__img {
         display: flex;
         justify-content: space-between;
-        margin: 0 auto 20px auto;
+        margin: auto auto 20px auto;
         width: 100%;
         align-items: center;
         width: 39vw; 
         height: 39vw; 
         object-fit: cover;
 
+        img {
+            display: flex;
+            width: 39vw; 
+            height: 39vw; 
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+
+        img:hover {
+            filter: brightness(50%);
+        }
+
+        .link {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hover-info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+            pointer-events: none;
+        
+            &__reference,
+            &__category {
+                @include poppins;
+                text-transform: uppercase;
+                font-weight: 500;
+                color: $blanc;
+                margin: 0;
+            }
+        }
+        
+        .link:hover .hover-info {
+            display: block;
+        }
     }
 }
