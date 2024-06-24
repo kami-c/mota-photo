@@ -1,97 +1,91 @@
-/* * * * * * * * * *
-*   LIGHTBOX.JS    *
- * * * * * * * * * */
+/* >>> LIGHTBOX.JS <<< */
 
+// >>> FONCTION DE GESTION DE LA LIGHTBOX
 function lightbox() {
+    
+    $('.link').hover( // >>> GESTION DES ÉVÈNEMENTS AU SURVOL DE '.link'
 
-    // Lors du survol de l'image
-    $('.link').hover(
-        function() {
-            // Fonction exécutée lorsque survol commence
+        function() {  // 1 - Lorsque la souris entre dans l'élément 
+
+            // >>> Récupération des données au survol
             const reference = $(this).data('reference');
             const category = $(this).data('category');
-            
-            // Afficher les informations dans un élément dédié
-            $(this).append('<div class="hover-info">' +
-                                '<p class="hover-info__reference">' + reference +'</p>' +
-                                '<p class="hover-info__category">' + category + '</p>' +
-                            '</div>');
-        }, 
-        function() {
-            // Fonction exécutée lorsque survol termine
-            $(this).find('.hover-info').remove(); // Supprimer les informations lorsque le survol se termine
+            const url = $(this).data('post-url');
+
+            $(this).append( // >>> Ajout de contenu HTML (cf. maquette) sur '.link'
+                '<div class="hover-info">' +
+                    '<button class="hover-info__full"></button>' +
+                    '<button class="hover-info__more" onclick="window.open(\'' + url + '\', \'_blank\')"></button>' +
+                    '<div class="info-container">'+
+                        '<p class="info-container__reference">' + reference +'</p>' +
+                        '<p class="info-container__category">' + category + '</p>' +
+                    '</div>'+
+                '</div>'
+            );
+        },
+
+        function() { // 2 - Lorsque la souris quitte l'élément
+            $(this).find('.hover-info').remove(); // >>> Retrait du contenu HTML à la fin du survol
         }
     );
 
-    // Lors du clic sur image
-    $('.link').on('click', function(e) {
+    $('.link').on('click', function(e) { // >>> GESTION DES ÉVÈNEMENTS AU CLIC SUR '.link'
         e.preventDefault();
 
-        const images = $('.link'); // Sélectionnez toutes les images de la galerie
-        let currentIndex = images.index($(this)); // Index de l'image actuellement ouverte
+        const images = $('.link'); // Sélection de toutes les images de la galerie
+        let currentIndex = images.index($(this)); // Index de l'image courante
 
-        // Fonction pour afficher l'image suivante dans la lightbox
-        function showNextImage() {
+        function showNextImage() { // >>> AFFICHAGE DE L'IMAGE SUIVANTE DANS LA LIGHTBOX
             currentIndex++;
             if (currentIndex >= images.length) {
-                currentIndex = 0; // Revenir au début de la galerie si on dépasse la dernière image
+                currentIndex = 0; // Réinitialisation du compteur pour retourner à la première image = boucle pour créer un effet de carrousel
             }
             showImageAtIndex(currentIndex);
         }
 
-        // Fonction pour afficher l'image précédente dans la lightbox
-        function showPrevImage() {
+        function showPrevImage() { // >>> AFFICHAGE DE L'IMAGE PRÉCÉDENTE DANS LA LIGHTBOX
            currentIndex--;
            if (currentIndex < 0) {
-               currentIndex = images.length - 1; // Aller à la dernière image si on dépasse la première image
+               currentIndex = images.length - 1; // Récupération de l'index de la dernière image pour créer boucler et garder l'effet de carrousel
            }
            showImageAtIndex(currentIndex);
         }
 
-        function showImageAtIndex(index) {
+        function showImageAtIndex(index) { // >>> AFFICHAGE DE L'IMAGE EN COURS DANS LA LIGHTBOX
+            $('.lightbox').remove(); // Suppression de toutes les lightbox précédemment ouvertes
 
+            // Récupération des données à afficher dans la lightbox
             const imageUrl = $(images[index]).attr('href');
             const imageTitle = $(images[index]).data('title');
-
             const imageReference = $(images[index]).data('reference');
             const imageCategory = $(images[index]).data('category');
-
-            // Afficher le loader pendant le chargement de l'image
-            const loader = '<div class="lightbox__loader"></div>';
-            $('body').append(loader);
-
+            // Création du contenu HTML de la lightbox
             const lightbox = '<div class="lightbox">' +
                                 '<button class="lightbox__close">Fermer</button>' +
                                 '<button class="lightbox__next">Suivant</button>' +
                                 '<button class="lightbox__prev">Précédent</button>' +
                                 '<div class="lightbox__container">' +
-                                    '<img src="' + imageUrl + '" alt="' + imageTitle + '" />' +
+                                    '<div class="lightbox__container--loader"></div>' +
+                                    '<img class="lightbox__image" src="' + imageUrl + '" alt="' + imageTitle + '" />' +
                                     '<p class="reference">' + imageReference + '</p>' +
                                     '<p class="category">'+ imageCategory + '</p>' +
                                 '</div>' +
                             '</div>';
         
-            // Ajouter la boîte de dialogue à la page
-            $('body').append(lightbox);
+            $('body').append(lightbox); // Ajout de la lightbox à la page
 
-            // Cacher le loader une fois que l'image est chargée
-            $('.lightbox__image').on('load', function() {
-                $('.lightbox__loader').remove(); // Supprimer le loader
+            $('.lightbox__image').on('load', function() { // >>> GESTION DE L'AFFICHAGE DE L'IMAGE LORS DE SON CHARGEMENT
+                $('.lightbox__container--loader').remove(); // Suppression du loader une fois l'image chargée
                 $('.lightbox').fadeIn(); // Afficher la lightbox une fois que l'image est chargée
             });
 
-            // Afficher la lightbox
-            $('.lightbox').fadeIn();
-
-            // Fermer la lightbox en cliquant sur le bouton Fermer
-            $('.lightbox__close').on('click', function(e) {
+            $('.lightbox__close').on('click', function(e) { // >>> GESTION DES ÉVÈNEMENTS AU CLIC SUR '.lightbox__close'
                 e.preventDefault();
-                $('.lightbox').fadeOut();
+                $('.lightbox').fadeOut(); // Fermeture de la lightbox
                 $(this).remove();
             });
 
-            // Gestion de la navigation avec le clavier
-            $(document).on('keyup', function(e) {
+            $(document).on('keyup', function(e) { // >>> GESTION DES ÉVÈNEMENTS LORS DE LA NAVIGATION AU CLAVIER
                 if (e.key === 'Escape') {
                     $('.lightbox').fadeOut(function() {
                         $(this).remove();
@@ -103,22 +97,22 @@ function lightbox() {
                 }
             });
 
-            // NEXT
-            $('.lightbox__next').on('click', function(e) {
+            $('.lightbox__next').on('click', function(e) { // >>> GESTION DES ÉVÈNEMENTS AU CLIC SUR '.lightbox__next'
                 e.preventDefault();
-                showNextImage();
+                showNextImage(); // Affichage de l'image suivante
             });
             
-            // PREVIOUS
-            $('.lightbox__prev').on('click', function(e) {
+            
+            $('.lightbox__prev').on('click', function(e) { // >>> GESTION DES ÉVÈNEMENTS AU CLIC SUR '.lightbox__prev'
                 e.preventDefault();
-                showPrevImage();
+                showPrevImage(); // Affichage de l'image précédente
+            });
+
+            $('.lightbox__image').on('click', function(e) {
+                e.stopPropagation();
             });
         }
 
-    // Afficher la première image sélectionnée dans la lightbox
-    showImageAtIndex(currentIndex);
-        
+    showImageAtIndex(currentIndex); // >>> AFFICHAGE DE L'IMAGE SÉLECTIONNÉE DANS LA LIGHTBOX
     });
-    return false;
 }
