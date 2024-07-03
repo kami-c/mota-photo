@@ -4,22 +4,14 @@
 
 body {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    min-height: 170vh;
+    max-width: 1440px; // 93.75vw;
+    margin: auto;
 }
 
 main {
     flex-grow:1;
 }
 
-
-/* RESPONSIVE */
-
-// @media screen and (min-width: 320px) and (max-width: 768px) {
-//     main {
-//         margin: 6vh 6vw;
-//     }
-
-// }
+.page-content {
+    margin: 4.62vh 8.3vw 13.18vh 8.3vw;
+}

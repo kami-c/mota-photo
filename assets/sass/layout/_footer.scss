@@ -1,5 +1,4 @@
-/* >>> FOOTER <<< */
-
+/* FOOTER */
 .footer {
     display: flex;
     border-top: solid 1px $noir;
@@ -18,15 +17,15 @@
 
         .menu-item {
             margin: 0 5.6vw;
-        }
 
-        .menu-item > a {
-            @include space-mono-normal;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .menu-item > a:hover {
-            font-weight: 700;
+            > a {
+                @include space-mono-normal;
+                text-decoration: none;
+                font-size: 16px;
+            }
+            > a:hover {
+                font-weight: 700;
+            }
         }
 
         .menu-item.disabled > a {

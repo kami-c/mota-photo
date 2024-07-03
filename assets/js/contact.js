@@ -1,9 +1,8 @@
-// --------- >>> GESTIONNAIRE DE LA MODALE DE CONTACT <<< -------------- //
+/* GESTIONNAIRE DE LA MODALE DE CONTACT */
 
-// >>> FONCTION D'OUVERTURE/FERMETURE DE LA MODALE
-
+// FONCTION D'OUVERTURE/FERMETURE DE LA MODALE
 function openCloseModal() {  
-    // >>> REQUÊTE AJAX pour récupérer "contact.php"
+    // REQUÊTE AJAX pour récupérer "contact.php"
     $.ajax({
         url: 'contact',
         dataType: 'html',
@@ -15,7 +14,7 @@ function openCloseModal() {
         }
     });
 
-    // >>> ÉCOUTEUR D'ÉVÈNEMENTS sur la class .modale : au clic
+    // ÉCOUTEUR D'ÉVÈNEMENTS sur la classe .modale : au clic
     $(".modale").on("click", function(e) {
         // BLOCAGE DU RECHARGEMENT DE LA PAGE
         e.preventDefault();
@@ -24,7 +23,7 @@ function openCloseModal() {
         $(".modal").fadeIn();
     });
 
-    // >>> ÉCOUTEUR D'ÉVÈNEMENTS des clics sur la fenêtre en dehors de la modale
+    // ÉCOUTEUR D'ÉVÈNEMENTS des clics sur la fenêtre en dehors de la modale
     $(window).on("click", function(event) {
         // CONDITION pour vérifier SI l'élément cliqué à la class .modal (width : 100% donc présent sur toute la fenêtre)
         if ($(event.target).is(".modal")) {
@@ -32,10 +31,9 @@ function openCloseModal() {
             $(".modal").fadeOut();
         }
     });
-    
 }
 
-// >>> FONCTION D'AJOUT DE LA RÉFÉRENCE DE LA PHOTO EN COURS
+// FONCTION D'AJOUT DE LA RÉFÉRENCE DE LA PHOTO CONSULTÉE
 function addRef() {  
     // RÉCUPÉRATION DE LA RÉFÉRENCE PHOTO dans le post en cours
     const currentReference = $('.reference').text();

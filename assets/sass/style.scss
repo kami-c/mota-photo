@@ -6,7 +6,7 @@ Version: 1.0
 Text Domain: mota-photo
 */
 
-// >>> IMPORTATION DES FEUILLES DE STYLES
+// IMPORTATION DES FEUILLES DE STYLES
 @import "utils/variables";
 @import "utils/mixin";
 @import "base/normalize";
@@ -14,9 +14,9 @@ Text Domain: mota-photo
 @import "base/typography.scss";
 @import "layout/header";
 @import "layout/menu_mobile";
-@import "layout/lightbox";
 @import "layout/footer";
+@import "layout/lightbox";
 @import "pages/contact";
-@import "pages/photo_details";
+@import "pages/single";
 @import "pages/home";
 @import "layout/photos_block"

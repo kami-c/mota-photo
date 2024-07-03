@@ -1,21 +1,11 @@
-// >>> jQuery <<< //
+/* jQuery */
 ( function( $ ) {
 
-    // >>> Exécution après chargement du complet du DOM
+    // Exécution après chargement du complet du DOM
     $(() => {
-        
-        // >>> EXCÉCUTION DES FONCTIONS DE LA MODALE DE CONTACT <<< //
-        // >>> cf. contact.js
+        // EXCÉCUTION DES FONCTIONS DE LA MODALE DE CONTACT
         openCloseModal()
         addRef()
-
-        // >>> FILTERS
-        // >>> cf. filters.js
-        filters()
-
-        // >>> LIGHTBOX
-        // >>> cf. lightbox.js
-        lightbox()
     })
 
 } )( jQuery )

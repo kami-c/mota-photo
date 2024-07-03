@@ -1,12 +1,11 @@
-/* >>> LIGHTBOX <<< */
-
+/* LIGHTBOX */
 .lightbox {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba($noir, .9);
+    background-color: rgba($noir, .8);
     z-index: 10;
     overflow: auto; // permet de scroller pour voir toute l'image dans sa hauteur sur petit ecran horizontal
     animation: lightboxIn .5s;
@@ -18,22 +17,29 @@
 
     &__next, 
     &__prev {
-        background: url(assets/img/arrow.svg) center / 25px 18px no-repeat;
         border: none;
         width: 50px;
         height: 100%;
         position: fixed;
         top: 0;
-        right: 0;
+        left: 0;
         margin-top: -14px;
         z-index: 11;
-        text-indent: -6000px; // à remettre plus tard
+        @include info-arrows;
+        color: $blanc;
+        text-transform: none;
+    }
+
+    &__prev {
+        background: url(assets/img/arrow-left.svg) center / 25px 18px no-repeat;
+        text-indent: 40px;
     }
 
     &__next {
-        right: auto;
-        left: 0;
-        transform: rotate(180deg);
+        background: url(assets/img/arrow-right.svg) center / 25px 18px no-repeat;
+        left: auto;
+        right: 0;
+        text-indent: -90px;
     }
 
     &__close {
@@ -41,9 +47,9 @@
         width: 22.021px;
         height: 22.018px;
         border: none;
-        text-indent: -3000px;
+        text-indent: -6000px;
         position: fixed;
-        top: 20px;
+        top: 40px;
         right: 13px;
         z-index: 12;
     }
@@ -73,7 +79,7 @@
             animation: lightboxIn .5s;
         }
 
-        &__loader {
+        &--loader {
             width: 38px;
             height: 98px;
             opacity: .5;

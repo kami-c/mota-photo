@@ -1,4 +1,4 @@
-// >>> FONTS <<<
+// FONTS
 @mixin space-mono-normal {
     font-family: $space-mono;
     font-style: $normal;
@@ -24,7 +24,7 @@
     line-height: $normal;
 }
 
-// >>> TITLES (desktop) <<<
+// TITRES (desktop)
 @mixin h1-desktop {
     @include space-mono-italic;
     font-size: 96px;
@@ -52,7 +52,7 @@
     letter-spacing: 1.4px;
 }
 
-// >>> TITLES (responsive) <<<
+// TITRES (responsive)
 @mixin h1-mobile {
     @include space-mono-italic;
     font-size: 27.588px;
@@ -67,14 +67,7 @@
     line-height: 48px;
 }
 
-// >>> BUTTONS <<<
-@mixin buttons-nav {
-    display: flex;
-    height: fit-content;
-    background: transparent;
-    border: none;
-}
-
+// CTA
 @mixin button-submit {
         border-radius: 2px;
         border-color: transparent;
@@ -87,9 +80,18 @@
         cursor: pointer;
 }
 
+// CTA:hover
 @mixin button-submit-hover {
-    background-color: $gris-fonce;
+    background-color: $noir;
     font-weight: 600;
     font-size: 14px;
     transition: all 0.2s ease-in;
+    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+    color: $blanc;
+}
+
+// FLÈCHES DIRECTIONNELLES
+@mixin info-arrows {
+    @include space-mono-normal;
+    font-size: 12px;
 }

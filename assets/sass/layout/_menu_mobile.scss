@@ -1,12 +1,17 @@
-/* >>> MENU RESPONSIVE <<<*/
+/* MENU RESPONSIVE */
 @media screen and (max-width: 768px) {
     header {
-        
+        justify-content: space-between;
+
+        .logo {
+            margin-left: 20px;
+        }
+
         .menu__btn {
             display: none;
         }
 
-        // >>> Animation du menu <<< // 
+        // Animation du bouton d'ouverture/fermeture du menu
         .menu__btn:checked ~ .navbar {
             display: flex;
             position: fixed;
@@ -17,19 +22,27 @@
             clear: both;
             background-color: $rouge;
             justify-content: center;
+            z-index: 3;
         }
 
-        .menu__btn:checked ~ .menu-icon .navicon {
-            background: transparent;
-        }
+        .menu__btn:checked ~ .menu-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 4;
 
-        .menu__btn:checked ~ .menu-icon .navicon:before {
-            transform: rotate(-45deg);
-            background: $blanc;
-        }
-        .menu__btn:checked ~ .menu-icon .navicon:after {
-            transform: rotate(45deg);
-            background: $blanc;
+            .navicon {
+                background: transparent;
+            }
+    
+            .navicon:before {
+                transform: rotate(-45deg);
+                background: $blanc;
+            }
+            .navicon:after {
+                transform: rotate(45deg);
+                background: $blanc;
+            }
         }
 
         .menu__btn:checked ~ .menu-icon:not(.steps) .navicon:before,
@@ -39,34 +52,29 @@
 
         .menu-icon {
             cursor: pointer;
-            float: right;
-            padding: 28px 20px;
-            user-select: none;
-            z-index: 2;
-            position: fixed;
-            top: 0;
-            right: 0;
+            z-index: 4;
+            position: relative;
+            padding: 20px;
         }
 
         .navicon {
             background: $noir;
-            display: block;
+            display: flex;
             position: relative;
             transition: .2s ease-out;
             width: 25px;
             height: 3px;
-            margin: 5px;
         }
 
         .navicon:before,
         .navicon:after {
-          background: #333;
-          content: '';
-          display: block;
-          height: 100%;
-          position: absolute;
-          transition: all .2s ease-out;
-          width: 100%;
+            background: $noir;
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            transition: all .2s ease-out;
+            width: 100%;
         }
         
         .navicon:before {
@@ -79,29 +87,31 @@
 
         .navbar {
             display: none;
+            top: 0;
 
             &__menu {
                 flex-direction: column;
                 align-items: center;
                 
                 .menu-item {
-                    margin: 15px 0; 
-                }
-
-                .menu-item > a {
-                    margin: auto;
-                    color: $blanc;
-                    text-align: center;
-                    font-family: "Space Mono";
-                    font-size: 44px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: normal;
-                    text-transform: uppercase;
-                }
-
-                .menu-item > a:hover {
-                    font-weight: 700;
+                    margin: 15px 0;
+                    
+                    > a {
+                        margin: auto;
+                        color: $blanc;
+                        text-align: center;
+                        font-family: "Space Mono";
+                        font-size: 44px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        text-transform: uppercase;
+                    }
+    
+                    > a:hover {
+                        font-weight: 700;
+                        transition: all .2s ease;
+                    }
                 }
             }
         }
@@ -115,18 +125,6 @@
             flex-direction: column;
             align-items: center;
             height: 25vh;
-        }
-    }
-}
-
-/* >>> Ajustement responsive - Mobile S - 320px <<< */
-@media screen and (max-width: 321px) {
-    header {
-        .logo {
-            padding: 20px;
-        }
-        .menu-icon {
-        padding: 20px 10px;
         }
     }
 }

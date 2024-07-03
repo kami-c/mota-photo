@@ -9,6 +9,7 @@
     </head>
     
 <body <?php body_class(); ?>>
+    <?php wp_body_open(); // fonction permettant aux extensions d’écrire du code au début du body ?>
     <header>
         <a class="logo" href="<?php echo home_url( '/' ); ?>">
             <img class="logo__img" width="215" height="14"  src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.webp" alt="Logo">
@@ -24,8 +25,8 @@
                 wp_nav_menu(
                     array(
                         'theme_location' => 'main',
-                        'container' => 'ul',
-                        'menu_class' => 'navbar__menu',
+                        'container' => 'ul', // supprime la div par défaut de wp
+                        'menu_class' => 'navbar__menu', // classe personnalisée
                         'menu_id' => 'primary-menu',
                     )
                 );
