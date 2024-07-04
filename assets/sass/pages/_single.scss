@@ -1,7 +1,5 @@
 /* SINGLE */
 .photo-post {
-    margin: 4.62vh 18.3vw 13.18vh 18.3vw;
-    
     .post {
         display: flex;
         width: 100%;
@@ -135,17 +133,17 @@
         .photo-bloc {
             #photo-container{
                 justify-content: space-between;
-            }
 
-            &__img {
-                flex: 1 0 45%;
-                height: 48vh;
-
-                .link,
-                .image,
-                .hover-info {
-                    width: 100%;
-                    height: 100%;
+                &__img {
+                    flex: 1 0 45%;
+                    height: 495px;
+    
+                    .link,
+                    .image,
+                    .hover-info {
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
 
