@@ -39,7 +39,8 @@ if ( ! function_exists( 'mota_photo_style' )):
             true
         );
 
-        // Récupération des données des photos 
+        /*
+	// Récupération des données des photos 
         $image_data = mota_photo_photo_block();
 
         // Définition du nombre total de photos dans $image_data
@@ -53,12 +54,12 @@ if ( ! function_exists( 'mota_photo_style' )):
         } elseif (is_single()) {
             $images_per_page = 2;
         }
+	*/
 
-        
         if (is_home() || is_single()) {
         // Filtres
 		    wp_enqueue_script(
-		    	'filters',
+		    	'ajax-filters',
 		    	get_stylesheet_directory_uri() . '/assets/js/filters.js',
 		    	array('jquery'),
 		    	1.0,
@@ -85,13 +86,9 @@ if ( ! function_exists( 'mota_photo_style' )):
 
             // Localisation des données Javascript pour utilisation côté client
 		    wp_localize_script(
-		    	'filters',
-		    	'imageData',
-		    	array(
-                    'imagesPerPage'     => $images_per_page,
-                    'totalImages'       => $total_images,
-                    'allDataImages'     => $image_data
-                )
+		    	'ajax-filters',
+		    	'filters_object',
+		    	array('ajax_url' => admin_url('admin-ajax.php'))
 		    );
         }
 
@@ -130,7 +127,7 @@ require get_template_directory() . '/inc/taxonomies.php';
 require get_template_directory() . '/inc/wp-query-filters.php';
 
 // Chargement supplémentaire de photos via requête AJAX
-function load_more_posts() {
+/*function load_more_posts() {
     $paged = $_POST['page'];
     $args = array(
         'posts_per_page' => 8,
@@ -140,4 +137,4 @@ function load_more_posts() {
     require get_template_directory() . '/templates-parts/photos-block.php';
 }
 add_action('wp_ajax_load_more', 'load_more_posts');
-add_action('wp_ajax_nopriv_load_more', 'load_more_posts');
+add_action('wp_ajax_nopriv_load_more', 'load_more_posts');*/
