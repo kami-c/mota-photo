@@ -46,7 +46,7 @@ function mota_photo_hero_header_filter() {
 }
 
 // WP_QUERY permettant l'affichage des photos
-function mota_photo_photo_block() {
+/*function mota_photo_photo_block() {
     $image_data = array();
 
     if (is_home()) {
@@ -120,5 +120,89 @@ function mota_photo_photo_block() {
     endif;
 
     return $image_data;
+}*/
+
+// $image_data = ajax_filter();
+
+
+function ajax_filter() {
+
+    $category = isset($_POST['categorie']) ? sanitize_text_field($_POST['categorie']) : '';
+    $format = isset($_POST['format']) ? sanitize_text_field($_POST['format']) : '';
+    $order = isset($_POST['order']) ? sanitize_text_field($_POST['order']) : 'desc';
+
+    $image_data = array();
+
+    if (is_home()) {
+        $args = array(
+            'post_type' => 'photos',
+            'orderby' => 'date',
+            'order' => $order,
+            'posts_per_page' => -1
+        );
+
+        if ($category) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'categorie',
+                    'field'    => 'slug',
+                    'terms'    => $term_slug,
+                )
+            );
+        }
+
+        if ($format) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'format',
+                    'field' => 'slug',
+                    'terms' => $term_slug,
+                )
+            );
+        }
+    } else {
+        $current_post_id = get_the_ID();
+        $terms = get_the_terms($current_post_id, 'categorie');
+
+        if (!empty($terms) && !is_wp_error($terms)) {
+            $current_term = $terms[0];
+            $term_slug = $current_term->slug;
+
+            $args = array(
+                'post_type'      => 'photos',
+                'posts_per_page' => 2,
+                'post__not_in'   => array($current_post_id),
+                'orderby'        => 'rand',
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'categorie',
+                        'field'    => 'slug',
+                        'terms'    => $term_slug,
+                    ),
+                ),
+            );
+        }
+    }
+    
+    $query = new WP_Query($args);
+    
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            
+            require get_template_directory() . '/templates-parts/photos-block.php';
+
+        }
+
+        wp_reset_postdata();
+
+    } else {
+        echo 'Il n\'y a pas de photos';
+    }
+    
+    wp_die();
 }
+add_action('wp_ajax_nopriv_ajax_filter', 'ajax_filter');
+add_action('wp_ajax_ajax_filter', 'ajax_filter');
+
 ?>
