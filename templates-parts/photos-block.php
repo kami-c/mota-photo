@@ -1,5 +1,5 @@
-<?php foreach ($image_data as $image): ?>
-    <?php if (isset($image) && is_array($image)) : ?>
+<?php foreach ($image_data as $image):
+    if (isset($image) && is_array($image)) : ?>
         <div class="photo-bloc__img">
             <a
             href="<?php echo esc_url($image['url']); ?>" class="link"
@@ -13,5 +13,5 @@
             <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" class="image"/>
             </a>
         </div>
-    <?php endif; ?>
-<?php endforeach; ?>
+    <?php endif;
+endforeach; ?>
