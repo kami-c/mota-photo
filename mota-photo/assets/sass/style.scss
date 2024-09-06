@@ -1,0 +1,22 @@
+/*
+Theme Name: Mota Photo
+Author: Kami-c
+Description: Thème dédié à la photographie
+Version: 1.0
+Text Domain: mota-photo
+*/
+
+// IMPORTATION DES FEUILLES DE STYLES
+@import "utils/variables";
+@import "utils/mixin";
+@import "base/normalize";
+@import "base/fonts";
+@import "base/typography.scss";
+@import "layout/header";
+@import "layout/menu_mobile";
+@import "layout/footer";
+@import "layout/lightbox";
+@import "pages/contact";
+@import "pages/single";
+@import "pages/home";
+@import "layout/photos_block"

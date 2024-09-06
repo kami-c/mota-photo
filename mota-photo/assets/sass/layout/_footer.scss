@@ -1,0 +1,36 @@
+/* FOOTER */
+.footer {
+    display: flex;
+    border-top: solid 1px $noir;
+    padding-bottom: 0.9vh;
+    justify-content: center;
+    flex-wrap: wrap;
+    z-index: 1;
+    width: 100%;
+
+    &__menu {
+        list-style: none;
+        padding-left: 0;
+        display: flex;
+        justify-content: space-evenly;
+        margin: 0 5.6vw;
+
+        .menu-item {
+            margin: 0 5.6vw;
+
+            > a {
+                @include space-mono-normal;
+                text-decoration: none;
+                font-size: 16px;
+            }
+            > a:hover {
+                font-weight: 700;
+            }
+        }
+
+        .menu-item.disabled > a {
+            cursor: none;
+            pointer-events: none;
+        }
+    }
+}

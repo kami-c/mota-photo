@@ -1,0 +1,29 @@
+/* TYPOGRAPHY RULES */
+h1 {
+    @include h1-desktop;
+}
+
+h2 {
+    @include h2-desktop;
+}
+
+h3 {
+    @include h3-desktop;
+}
+
+p  {
+    @include poppins;
+}
+
+
+// RESPONSIVE
+@media screen and (min-width: 320px) and (max-width: 768px) {
+
+    h1 {
+        @include h1-mobile;
+    }
+
+    h2 {
+        @include h2-mobile;
+    }
+}

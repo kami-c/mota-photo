@@ -1,0 +1,97 @@
+// FONTS
+@mixin space-mono-normal {
+    font-family: $space-mono;
+    font-style: $normal;
+    font-weight: 400;
+    line-height: $normal;
+    text-transform: $uppercase;
+    color: $noir;
+}
+
+@mixin space-mono-italic {
+    font-family: $space-mono;
+    font-style: $italic;
+    text-transform: $uppercase;
+    color: $noir;
+}
+
+@mixin poppins {
+    color: $noir;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: $normal;
+    font-weight: 300;
+    line-height: $normal;
+}
+
+// TITRES (desktop)
+@mixin h1-desktop {
+    @include space-mono-italic;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: $normal;
+}
+
+@mixin h2-desktop {
+    @include space-mono-italic;
+    font-size: 66px;
+    font-weight: 400;
+    line-height: 58px;
+}
+
+@mixin h3-desktop {
+    @include space-mono-normal;
+    font-size: 18px;
+    letter-spacing: 1.8px;
+}
+
+@mixin description-photo {
+    @include space-mono-normal;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1.4px;
+}
+
+// TITRES (responsive)
+@mixin h1-mobile {
+    @include space-mono-italic;
+    font-size: 27.588px;
+    font-weight: 700;
+    line-height: $normal;
+}
+
+@mixin h2-mobile {
+    @include space-mono-italic;
+    font-size: 46px;
+    font-weight: 400;
+    line-height: 48px;
+}
+
+// CTA
+@mixin button-submit {
+        border-radius: 2px;
+        border-color: transparent;
+        background: $gris-moyen;
+        box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+        height: 50px;
+        width: 263px;
+        font-family: $space-mono;
+        font-size: 12px;
+        cursor: pointer;
+}
+
+// CTA:hover
+@mixin button-submit-hover {
+    background-color: $noir;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease-in;
+    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+    color: $blanc;
+}
+
+// FLÈCHES DIRECTIONNELLES
+@mixin info-arrows {
+    @include space-mono-normal;
+    font-size: 12px;
+}

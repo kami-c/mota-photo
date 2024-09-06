@@ -1,0 +1,168 @@
+/* FENÊTRE MODALE CONTACT */
+.modal { 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+
+
+    .modal__content {
+        position: relative;
+        margin: 15% auto;
+        padding: 20px;
+        background-color: $blanc;
+        border: 5px solid $noir; 
+        width: 597px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        .contact {
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+
+            &__header {
+                height: 106px;
+                margin-bottom: 46px;
+            }
+
+            &__field {
+                width: 263px;
+                height: 493px;
+                margin-bottom: 19px;
+
+                .field {
+                    width: 263px;
+                    height: 62px;
+                    margin-bottom: 24px;
+
+                    &__label {
+                        color: $bleu-fonce;
+                        font-family: Poppins;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                        text-transform: uppercase; 
+                    }
+
+                    &__input {
+                        height: 40px;
+                        padding: 10px;
+                        border-radius: 8px;
+                        border: 1px solid $bordure-contact;
+                        background: $blanc;
+                        width: -webkit-fill-available;
+                        width: -moz-available;
+                        text-transform: uppercase;
+                    }
+
+                    &__input:focus {
+                        border: 3px $bordure-contact outset;
+                    }
+
+                    &__input--message {
+                        height: 210px;
+                        padding: 10px;
+                        border-radius: 8px;
+                        border: 1px solid $bordure-contact;
+                        background: $blanc;
+                        width: -webkit-fill-available;
+                        width: -moz-available;
+                    }
+
+                    &__input--message:focus {
+                        border: 3px $bordure-contact outset;
+                    }
+
+                    .wpcf7-not-valid-tip {
+                        font-size: 0.9em;
+                        display: flex;
+                        justify-content: flex-end;
+                    }
+                }
+            }
+
+            &__submit {
+                display: flex;
+                align-items: center;
+                width: 263px;
+                padding-top: 12px;
+                
+                &__input {
+                    @include button-submit;
+                }
+
+                &__input:hover {
+                    @include button-submit-hover;
+                }
+            }
+
+            .wpcf7-response-output {
+                margin: auto;
+                font-family: 'Poppins';
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+/* RESPONSIVE */
+@media (min-width: 375px) and (max-width: 426px) {
+    body {
+       .modal {
+            .modal__content {
+                width: 320px;
+
+                .contact {
+                    .wpcf7-response-output {
+                        display: block;
+                        margin: 0 307px;
+                    }
+                }
+            } 
+       }   
+    }
+}
+
+@media (max-width: 321px) {
+    body {
+       .modal {
+            .modal__content {
+                width: 260px;
+
+                .contact__header {
+                   height: 55px;
+                   margin-bottom: 20px;
+                }
+
+                .contact__field {
+                    .field__input {
+                       height: 20px;
+                    }
+
+                    .field__input--message {
+                        height: 190px;
+                    }
+                }
+
+                .contact {
+                    .wpcf7-response-output {
+                        display: block;
+                        margin: 0 97px;
+                    }
+                }
+            }
+        }
+    }
+}

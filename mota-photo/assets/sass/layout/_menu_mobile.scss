@@ -1,0 +1,130 @@
+/* MENU RESPONSIVE */
+@media screen and (max-width: 768px) {
+    header {
+        justify-content: space-between;
+
+        .logo {
+            margin-left: 20px;
+        }
+
+        .menu__btn {
+            display: none;
+        }
+
+        // Animation du bouton d'ouverture/fermeture du menu
+        .menu__btn:checked ~ .navbar {
+            display: flex;
+            position: fixed;
+            transition: max-height .2s ease-out;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            clear: both;
+            background-color: $rouge;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .menu__btn:checked ~ .menu-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 4;
+
+            .navicon {
+                background: transparent;
+            }
+    
+            .navicon:before {
+                transform: rotate(-45deg);
+                background: $blanc;
+            }
+            .navicon:after {
+                transform: rotate(45deg);
+                background: $blanc;
+            }
+        }
+
+        .menu__btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+        .menu__btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+            top: 0;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            z-index: 4;
+            position: relative;
+            padding: 20px;
+        }
+
+        .navicon {
+            background: $noir;
+            display: flex;
+            position: relative;
+            transition: .2s ease-out;
+            width: 25px;
+            height: 3px;
+        }
+
+        .navicon:before,
+        .navicon:after {
+            background: $noir;
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            transition: all .2s ease-out;
+            width: 100%;
+        }
+        
+        .navicon:before {
+            top: 5px;
+        }
+          
+        .navicon:after {
+            top: -5px;
+        }
+
+        .navbar {
+            display: none;
+            top: 0;
+
+            &__menu {
+                flex-direction: column;
+                align-items: center;
+                
+                .menu-item {
+                    margin: 15px 0;
+                    
+                    > a {
+                        margin: auto;
+                        color: $blanc;
+                        text-align: center;
+                        font-family: "Space Mono";
+                        font-size: 44px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        text-transform: uppercase;
+                    }
+    
+                    > a:hover {
+                        font-weight: 700;
+                        transition: all .2s ease;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer {
+        z-index: -1;
+        flex-direction: column;
+
+        &__menu {
+            flex-direction: column;
+            align-items: center;
+            height: 25vh;
+        }
+    }
+}

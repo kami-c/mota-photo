@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    max-width: 1440px; // 93.75vw;
+    margin: auto;
+}
+
+main {
+    flex-grow:1;
+}
+
+.page-content {
+    margin: 38px 146px;
+}
+
+/* Responsive */
+@media screen and (min-width: 320px) and (max-width: 426px) {
+    .page-content {
+        margin: 38px 38px;
+    }
+}
